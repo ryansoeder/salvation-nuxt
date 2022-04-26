@@ -60,15 +60,15 @@ export default {
   },
   head() {
     return {
-      title: this.pageInfo.title.rendered,
-      // meta: [
-      //   // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-      //   {
-      //     hid: 'description',
-      //     name: 'description',
-      //     content: 'My custom description',
-      //   },
-      // ],
+      title: `Tattoo Salvation | ${this.pageInfo.title.rendered}`,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.pageInfo.acf.page_description,
+        },
+      ],
     }
   },
 }

@@ -136,7 +136,7 @@
                     <div class="icon-holder order-1 order-lg-2">
                       <img
                         class="card-logo"
-                        src="@/static/circle-logo.svg"
+                        src="~/assets/circle-logo.svg"
                         alt="circular Tattoo Salvation logo"
                       />
                     </div>
@@ -255,15 +255,15 @@ export default {
   },
   head() {
     return {
-      title: this.artistInfo.title.rendered,
-      // meta: [
-      //   // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-      //   {
-      //     hid: 'description',
-      //     name: 'description',
-      //     content: 'My custom description',
-      //   },
-      // ],
+      title: `Tattoo Saltation | ${this.artistInfo.title.rendered}`,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.artistInfo.acf.page_description,
+        },
+      ],
     }
   },
 }

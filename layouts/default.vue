@@ -23,7 +23,7 @@
 // import bootstrapJS from '@/static/js/vendor/bootstrap.min.js'
 // import owlJS from '@/static/js/vendor/owl.carousel.min.js'
 if (process.browser) {
-  const script = require('~/static/js/script.js')
+  const script = require('~/assets/js/script.js')
 }
 
 // COMPONENTS

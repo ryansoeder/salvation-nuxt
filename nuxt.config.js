@@ -8,19 +8,46 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'The best tattoos and piercings in Louisillve, KY.' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'The best tattoos and piercings in Louisillve, KY.',
+      },
       { name: 'format-detection', content: 'telephone=no' },
+      { name: 'msapplication-TileColor', content: '#2d89ef' },
+      { name: 'theme-color', content: '#ffffff' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png',
+      },
+      { rel: 'manifest', href: '/site.webmanifest' },
+      { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/vendor/css/bootstrap.min.css',
-    '~/vendor/css/bundle.min.css',
-    '~/vendor/css/jquery.fancybox.min.css',
-    '~/vendor/css/LineIcons.min.css',
-    '~/static/styles/global.css',
+    '~/assets/vendor/css/bootstrap.min.css',
+    '~/assets/vendor/css/bundle.min.css',
+    '~/assets/vendor/css/jquery.fancybox.min.css',
+    '~/assets/vendor/css/LineIcons.min.css',
+    '~/assets/global.css',
   ],
   // Transition to run on every page load
   // pageTransition: 'fade',

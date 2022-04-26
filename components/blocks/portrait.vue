@@ -57,6 +57,9 @@ export default {
   &.content-left {
     .row {
       flex-direction: row-reverse;
+      @media (max-width: 992px) {
+        flex-direction: column-reverse;
+      }
     }
     @media (max-width: 992px) {
       .heading-area {

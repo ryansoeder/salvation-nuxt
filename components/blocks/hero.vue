@@ -33,7 +33,7 @@
             /></span>
           </h1>
           <span v-if="block.tag">{{ block.tag }}</span>
-          <h2 v-if="block.subtitle">{{ block.subtitle }}</h2>
+          <h2 class="subtitle" v-if="block.subtitle">{{ block.subtitle }}</h2>
           <h3 v-if="block.enable_hours && block.hours_title">
             {{ block.hours_title }}
           </h3>
@@ -116,10 +116,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.info-sec {
+  .label {
+    color: #0073e6;
+    font-size: 21px;
+  }
+  .heading {
+    font-size: 4rem;
+    line-height: 1;
+    @media (max-width: 992px) {
+      font-size: 45px;
+    }
+  }
+  .subtitle {
+    font-weight: 400;
+  }
+}
+
 .info-sec.content-center {
   .label {
     margin-bottom: 50px;
-    font-size: 29px;
     letter-spacing: 2px;
   }
   .row {
@@ -132,9 +148,6 @@ export default {
 }
 .info-sec.content-left,
 .info-sec.content-right {
-  .label {
-    border-bottom: 1px solid black;
-  }
   .info-wrapper {
     text-align: left;
     .buttons {
