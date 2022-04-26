@@ -1,22 +1,23 @@
 <template>
   <div>
-    <TheNav
+    <TheHeader
       v-if="siteOptions && menu"
       :logo="siteOptions.header_logo"
       :menu="menu"
     />
+    <main>
       <Nuxt />
+    </main>
+    <TheFooter
+      v-if="siteOptions && menu"
+      :logo="siteOptions.footer_logo"
+      :menu="menu"
+      :social="siteOptions.social"
+    />
   </div>
 </template>
 
 <script>
-// STYLES
-// import bootstrap from '~/vendor/css/bootstrap.min.css'
-// import bundle from '~/vendor/css/bundle.min.css'
-// import fancybox from '~/vendor/css/jquery.fancybox.min.css'
-// import LineIcons from '~/vendor/css/LineIcons.min.css'
-// import styles from '~/static/styles/global.css'
-
 // SCRIPTS
 // import jquery from '@/static/js/vendor/jquery-3.6.0.min.js'
 // import bundleJS from '@/static/js/vendor/bundle.min.js'
@@ -27,13 +28,8 @@ if (process.browser) {
 }
 
 // COMPONENTS
-import TheNav from '~/components/TheNav'
-
 export default {
   name: 'IndexPage',
-  components: {
-    TheNav,
-  },
   data() {
     return {
       siteOptions: null,
@@ -46,23 +42,10 @@ export default {
     )
     const options = await res.json()
     this.siteOptions = await options[0]
-
     const menuRes = await fetch(
       'http://tattoo-salvation.local/wp-json/wp/v2/main_menu'
     )
     this.menu = await menuRes.json()
   },
-  // methods: {
-  //   async fetchOptions() {
-  //     const res = await fetch(
-  //       `http://tattoo-salvation.local/wp-json/wp/v2/site_options/`
-  //     )
-  //     const options = await res.json()
-  //     this.siteOptions = options[0]
-  //   },
-  // },
-  // async created() {
-  //   this.fetchOptions()
-  // },
 }
 </script>

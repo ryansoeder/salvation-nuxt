@@ -156,7 +156,7 @@
 
 <script>
 export default {
-  name: 'TheNav',
+  name: 'TheHeader',
   props: {
     logo: Object,
     menu: Array,

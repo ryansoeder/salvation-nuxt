@@ -13,9 +13,15 @@ export default {
         name: 'description',
         content: 'The best tattoos and piercings in Louisillve, KY.',
       },
+      {
+        name: 'keywords',
+        content:
+          'tattoo, piercing, tattoos, piercings, tattooing, piercing, louisville, kentucky, ky, traditional, realism, disposable, black, grey, sterile, color',
+      },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'msapplication-TileColor', content: '#2d89ef' },
       { name: 'theme-color', content: '#ffffff' },
+      { property: 'og:image', content: '/neon.jpg' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
