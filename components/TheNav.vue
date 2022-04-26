@@ -9,7 +9,7 @@
               class="sidemenu_btn link"
               id="sidemenu_toggle"
               aria-label="side navigation open"
-              @click="sideMenu"
+              @click="showSideMenu = true"
             >
               <span></span>
               <span></span>
@@ -58,10 +58,13 @@
       </div>
     </div>
     <!--Side Nav-->
-    <div class="side-menu hidden side-menu-opacity">
+    <div :class="showSideMenu ? shownClasses : hiddenClasses" ref="side-menu">
       <div class="bg-overlay"></div>
       <div class="inner-wrapper">
-        <span class="btn-close" id="btn_sideNavClose" @click="closeMenu"
+        <span
+          class="btn-close"
+          id="btn_sideNavClose"
+          @click="showSideMenu = false"
           ><i></i><i></i
         ></span>
         <div class="container">
@@ -77,7 +80,7 @@
                         item.menu_item_parent == 0 && internalLink(item.url)
                       "
                       :to="getSlug(item.url)"
-                      @click="closeMenu"
+                      @click="showSideMenu = false"
                       >{{ item.title }}</NuxtLink
                     >
                     <a
@@ -86,7 +89,7 @@
                       v-else-if="item.menu_item_parent == 0"
                       :href="item.url"
                       target="_blank"
-                      @click="closeMenu"
+                      @click="showSideMenu = false"
                       >{{ item.title }}</a
                     >
                     <template v-for="subItem in menu">
@@ -98,7 +101,7 @@
                           internalLink(subItem.url)
                         "
                         :to="getSlug(subItem.url)"
-                        @click="closeMenu"
+                        @click="showSideMenu = false"
                         >{{ subItem.title }}</NuxtLink
                       >
                       <a
@@ -107,7 +110,7 @@
                         v-else-if="subItem.menu_item_parent == item.ID"
                         :href="subItem.url"
                         target="_blank"
-                        @click="closeMenu"
+                        @click="showSideMenu = false"
                         >{{ subItem.title }}</a
                       >
                     </template>
@@ -144,7 +147,7 @@
     </div>
     <a
       id="close_side_menu"
-      class="closed"
+      :class="showSideMenu ? '' : 'closed'"
       href="javascript:void(0);"
       @click="closeMenu"
     ></a>
@@ -158,7 +161,13 @@ export default {
     logo: Object,
     menu: Array,
   },
-
+  data() {
+    return {
+      showSideMenu: false,
+      shownClasses: ['side-menu', 'side-menu-active', 'hidden'],
+      hiddenClasses: ['side-menu', 'hidden'],
+    }
+  },
   methods: {
     internalLink(url) {
       const newRL = new URL(url)
@@ -184,27 +193,20 @@ export default {
       })
       return subItemFound
     },
-    sideMenu() {
-      const sideMenu = document.querySelector('.side-menu')
-      sideMenu.classList.remove('side-menu-opacity')
-      sideMenu.classList.add('side-menu-active')
-      document.querySelector('#close_side_menu').classList.toggle('closed')
-    },
+    // sideMenu() {
+    //   const sideMenu = document.querySelector('.side-menu')
+    //   sideMenu.classList.remove('side-menu-opacity')
+    //   sideMenu.classList.add('side-menu-active')
+    //   document.querySelector('#close_side_menu').classList.remove('closed')
+    // },
     closeMenu() {
-      document.querySelector('.side-menu').classList.remove('side-menu-active')
-      document.querySelector('#close_side_menu').classList.add('closed')
-      setTimeout(function () {
-        document.querySelector('.side-menu').classList.add('side-menu-opacity')
-      }, 500)
+      this.showSideMenu = false
     },
   },
 }
 </script>
 
 <style scoped lang="scss">
-.router-link-active {
-  color: #ec3737;
-}
 .inner-header {
   border-bottom: 1px solid black;
   .row {
@@ -248,8 +250,15 @@ export default {
       color: black;
       margin-right: 20px;
       text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 3px;
+      &.nuxt-link-exact-active {
+        color: #0073e6;
+        border-bottom: 1px solid #0073e6;
+      }
       &:hover {
-        color: #ec3737;
+        color: #0073e6;
+        border-bottom: 1px solid #0073e6;
       }
       &:last-of-type {
         margin-right: unset;
@@ -296,7 +305,7 @@ export default {
 @for $i from 1 through 50 {
   .nav-icon
     .navbar-nav
-    .nav-link:nth-child(#{$i}).router-link-active
+    .nav-link:nth-child(#{$i}).nuxt-link-active
     ~ .menu-line,
   .nav-icon .navbar-nav .nav-link:nth-child(#{$i}):active ~ .menu-line {
     -webkit-transform: translateY(calc(#{$i}* 100%)) translateY(-100%);

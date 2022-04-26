@@ -2,7 +2,7 @@
   <div>
     <template v-if="artistInfo">
       <!-- <transition name="fade"> -->
-      <section class="services-sec portfolio-sec artist padding-top" id="jesse">
+      <section class="services-sec portfolio-sec artist padding-top">
         <div class="container">
           <div class="row">
             <div class="col-12 col-lg-6">
@@ -170,11 +170,11 @@
                     leave-active-class="animated slideOutLeft"
                   >
                     <template v-if="artistInfo.acf.portfolio">
-                      <VueSlickCarousel :arrows="true" :dots="true">
+                      <VueSlickCarousel v-bind="settings">
                         <div
                           class="item"
-                          v-for="row in artistInfo.acf.portfolio"
-                          :key="row"
+                          v-for="(row, index) in artistInfo.acf.portfolio"
+                          :key="index"
                         >
                           <img :src="row.url" :alt="row.alt" />
                         </div>
@@ -198,102 +198,78 @@
         </template>
       </div>
     </template>
-    <template v-else>
-      <NotFound />
-    </template>
   </div>
 </template>
 
 <script>
-import { defineAsyncComponent } from '@vue/runtime-core'
-import NotFound from '@/components/NotFound.vue'
+import { mapState } from 'vuex'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
 import VueSlickCarousel from 'vue-slick-carousel'
-// optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 export default {
   name: 'Artist',
   components: {
-    NotFound,
     VueSlickCarousel,
   },
   transition: 'default',
-  // data() {
-  //   return {
-  //     artistInfo: null,
-  //     blocks: null,
-  //   }
-  // },
-  async asyncData({ params }) {
-    const artistRes = await fetch(
-      `http://tattoo-salvation.local/wp-json/wp/v2/pages?slug=${params.Artist}`
-    )
-    const artist = await artistRes.json()
-    const artistInfo = await artist[0]
-    const blocks = await artistInfo.acf.blocks
-
-    return { artistInfo, blocks }
+  data() {
+    return {
+      settings: {
+        arrows: true,
+        dots: true,
+        focusOnSelect: true,
+        infinite: true,
+        slidesToShow: 1,
+        speed: 500,
+        lazyLoad: 'ondemand',
+        fade: true,
+      },
+    }
+  },
+  async fetch({ params, store }) {
+    let slug = params.Artist
+    await store.dispatch(`artist/get_artist`, { slug })
   },
   computed: {
+    ...mapState({
+      artistInfo: (state) => {
+        return state.artist.artist
+      },
+      blocks: (state) => {
+        return state.artist.blocks
+      },
+    }),
     dynamicBlocks() {
-      return this.blocks.map((value) => {
-        let newObj = {
-          blockInfo: value,
-          blockName: () =>
-            import(`~/components/blocks/${value.acf_fc_layout}.vue`),
-        }
-        return newObj
-      })
+      if (this.blocks) {
+        return this.blocks.map((value) => {
+          let newObj = {
+            blockInfo: value,
+            blockName: () =>
+              import(`~/components/blocks/${value.acf_fc_layout}.vue`),
+          }
+          return newObj
+        })
+      }
     },
   },
-  // methods: {
-  //   async fetchArtist() {
-  //     let slug = this.$route.params.slug
-  //     const artistRes = await fetch(
-  //       `http://tattoo-salvation.local/wp-json/wp/v2/artist?slug=${slug}`
-  //     )
-  //     const artist = await artistRes.json()
-  //     this.artistInfo = await artist[0]
-  //     this.blocks = await artist[0].acf.blocks
-  //   },
-  //   blockCaller(componentname) {
-  //     return defineAsyncComponent(() =>
-  //       import(`@/components/blocks/${componentname}.vue`)
-  //     )
-  //   },
-  //   onChange() {
-  //     this.artistInfo = null
-  //     this.fetchArtist()
-  //   },
-  // },
-  // async created() {
-  //   this.fetchArtist()
-  //   // https://vueschool.io/lessons/reacting-to-param-changes?friend=vuerouter
-  //   // using below metho because :key="$route.path" in App.vue <router-view /> does not add .router-link-active class
-  //   this.$watch(() => this.$route.params, this.onChange)
-  // },
+  head() {
+    return {
+      title: this.artistInfo.title.rendered,
+      // meta: [
+      //   // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+      //   {
+      //     hid: 'description',
+      //     name: 'description',
+      //     content: 'My custom description',
+      //   },
+      // ],
+    }
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.3s ease-out;
-}
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
-  opacity: 0;
-}
 .heading-area {
   left: -80px;
   @media (max-width: 992px) {
@@ -334,11 +310,27 @@ export default {
   .heading-area {
     left: unset;
   }
-  img {
-    object-fit: cover;
-    width: 70%;
+  .slick-slider {
+    width: 60%;
     @media (max-width: 1300px) {
-      width: 90%;
+      width: 70%;
+    }
+    @media (max-width: 1100px) {
+      width: 80%;
+    }
+    @media (max-width: 992px) {
+      width: 60%;
+      margin: 0 auto;
+    }
+    @media (max-width: 650px) {
+      width: 80%;
+    }
+  }
+  .item {
+    width: 100%;
+    img {
+      width: 100%;
+      object-fit: cover;
     }
   }
 }

@@ -1,12 +1,12 @@
 <template>
-    <h1>{{ title }}</h1>
+  <h1>{{ title }}</h1>
 </template>
 
 <script>
 export default {
-    name: 'Title',
-    props: {
-        title: String,
-    },
+  name: 'Title',
+  props: {
+    title: String,
+  },
 }
 </script>

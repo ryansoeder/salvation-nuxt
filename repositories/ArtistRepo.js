@@ -5,6 +5,6 @@ export default ($axios) => ({
   },
 
   single(slug) {
-    return $axios.get(`${resource}?=${slug}`)
+    return $axios.get(`${resource}?slug=${slug}`)
   },
 })

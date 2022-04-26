@@ -5,17 +5,17 @@
       :logo="siteOptions.header_logo"
       :menu="menu"
     />
-    <Nuxt />
+      <Nuxt />
   </div>
 </template>
 
 <script>
 // STYLES
-import bootstrap from '~/vendor/css/bootstrap.min.css'
-import bundle from '~/vendor/css/bundle.min.css'
-import fancybox from '~/vendor/css/jquery.fancybox.min.css'
-import LineIcons from '~/vendor/css/LineIcons.min.css'
-import styles from '~/static/styles/global.css'
+// import bootstrap from '~/vendor/css/bootstrap.min.css'
+// import bundle from '~/vendor/css/bundle.min.css'
+// import fancybox from '~/vendor/css/jquery.fancybox.min.css'
+// import LineIcons from '~/vendor/css/LineIcons.min.css'
+// import styles from '~/static/styles/global.css'
 
 // SCRIPTS
 // import jquery from '@/static/js/vendor/jquery-3.6.0.min.js'

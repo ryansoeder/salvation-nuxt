@@ -1,17 +1,33 @@
 <template>
-  <section class="info-sec" id="info">
+  <section
+    :class="[
+      'block',
+      'hero',
+      'info-sec',
+      block.content_position,
+      block.content_position != 'content-center' ? 'piercing-sec' : '',
+    ]"
+  >
     <div
       class="container"
       :style="{
         backgroundImage:
-          'linear-gradient(rgba(255, 255, 255 , 0.85), rgba(255, 255, 255 , 0.85)), url(' +
-          block.image.url +
-          ')',
+          block.content_position == 'content-left'
+            ? bgGradientLeft
+            : block.content_position == 'content-center'
+            ? bgGradientCenter
+            : bgGradientRight,
       }"
     >
       <div class="row">
         <div class="info-wrapper">
-          <h1 class="heading" v-if="block.title">
+          <h1 class="label" v-if="block.label">{{ block.label }}</h1>
+          <h2 class="heading" v-if="block.title && block.label">
+            <span v-for="(row, index) in block.title" :key="index"
+              >{{ row.line }}<br
+            /></span>
+          </h2>
+          <h1 class="heading" v-else-if="block.title">
             <span v-for="(row, index) in block.title" :key="index"
               >{{ row.line }}<br
             /></span>
@@ -32,23 +48,7 @@
             v-if="block.content"
             v-html="block.content"
           ></div>
-          <div class="inquiries" v-if="block.enable_buttons && block.buttons">
-            <template v-for="(row, index) in block.buttons">
-              <a
-                :key="index"
-                :href="row.button.url"
-                :target="row.button.target"
-                class="btn btn-main rounded-pill"
-                >{{ row.button.title }}</a
-              >
-            </template>
-          </div>
-          <!-- <a
-						href="https://www.google.com/maps/place/Tattoo+Salvation+%26+Piercing+Redemption/@38.2329626,-85.7135795,17z/data=!3m1!4b1!4m5!3m4!1s0x88690ccea1ab5f89:0x8680c4ad6cecaa9c!8m2!3d38.232991!4d-85.7114353"
-						target="_blank"
-						class="btn btn-main rounded-pill"
-						>Get directions</a
-					> -->
+          <Buttons v-if="block.buttons" :buttons="block.buttons" />
         </div>
       </div>
     </div>
@@ -56,10 +56,104 @@
 </template>
 
 <script>
+import Buttons from '~/components/blocks/includes/buttons.vue'
+
 export default {
   name: 'Hero',
+  components: {
+    Buttons,
+  },
   props: {
     block: Object,
   },
+  data() {
+    return {
+      width: 0,
+    }
+  },
+  computed: {
+    bgGradientLeft() {
+      if (this.width > 768) {
+        return `linear-gradient(to left, rgba(255, 255, 255, .2) 30%, rgba(255, 255, 255, 1)), url(${this.block.image.url})`
+      } else {
+        return `linear-gradient(to left, rgba(255, 255, 255, .8) 50%, rgba(255, 255, 255, 1)), url(${this.block.image.url})`
+      }
+    },
+    bgGradientCenter() {
+      if (this.width > 768) {
+        return `linear-gradient(rgba(255, 255, 255 , 0.85), rgba(255, 255, 255 , 0.85)), url(${this.block.image.url})`
+      } else {
+        return `linear-gradient(rgba(255, 255, 255 , 0.85), rgba(255, 255, 255 , 0.85)), url(${this.block.image.url})`
+      }
+    },
+    bgGradientRight() {
+      if (this.width > 768) {
+        return `linear-gradient(to right, rgba(255, 255, 255, .2) 30%, rgba(255, 255, 255, 1)), url(${this.block.image.url})`
+      } else {
+        return `linear-gradient(to right, rgba(255, 255, 255, .8) 50%, rgba(255, 255, 255, 1)), url(${this.block.image.url})`
+      }
+    },
+  },
+  mounted() {
+    this.handleResize()
+    if (process.browser) {
+      window.addEventListener('resize', this.handleResize)
+    }
+  },
+  destroyed() {
+    if (process.browser) {
+      window.removeEventListener('resize', this.handleResize)
+    }
+  },
+  methods: {
+    handleResize() {
+      if (process.browser) {
+        this.width = window.innerWidth
+      }
+    },
+  },
 }
 </script>
+
+<style scoped lang="scss">
+.info-sec.content-center {
+  .label {
+    margin-bottom: 50px;
+    font-size: 29px;
+    letter-spacing: 2px;
+  }
+  .row {
+    margin-right: unset;
+    margin-left: unset;
+  }
+  .info-wrapper {
+    max-width: 800px;
+  }
+}
+.info-sec.content-left,
+.info-sec.content-right {
+  .label {
+    border-bottom: 1px solid black;
+  }
+  .info-wrapper {
+    text-align: left;
+    .buttons {
+      align-items: flex-start;
+      .btn {
+        margin-left: 0;
+        margin-right: auto;
+      }
+    }
+  }
+}
+.info-sec.content-left {
+  .row {
+    justify-content: flex-start;
+  }
+}
+.info-sec.content-right {
+  .row {
+    justify-content: flex-end;
+  }
+}
+</style>

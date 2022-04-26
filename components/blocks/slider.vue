@@ -12,7 +12,7 @@
         <div class="col-12 col-lg-8 position-relative">
           <div>
             <template v-if="block.slides">
-              <VueSlickCarousel :arrows="true" :dots="true">
+              <VueSlickCarousel>
                 <div class="item" v-for="row in block.slides" :key="row">
                   <img :src="row.slide.url" :alt="row.slide.alt" />
                 </div>
@@ -26,9 +26,9 @@
 </template>
 
 <script>
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
 import VueSlickCarousel from 'vue-slick-carousel'
-// optional style for arrows & dots
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 export default {
   name: 'Slider',
@@ -37,6 +37,20 @@ export default {
   },
   props: {
     block: Object,
+  },
+    data() {
+    return {
+      settings: {
+        arrows: true,
+        dots: true,
+        focusOnSelect: true,
+        infinite: true,
+        slidesToShow: 1,
+        speed: 500,
+        lazyLoad: 'ondemand',
+        fade: true,
+      },
+    }
   },
 }
 </script>
