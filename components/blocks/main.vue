@@ -1,11 +1,11 @@
 <template>
-  <section class="block main info-sec">
+  <section class="block main info-sec" :style="{height: windowWidth <= 992 ? 'auto' : blockHeight + 'px'}">
     <div class="container-fluid">
       <div :class="['row', 'no-gutters', block.content_position]">
         <div
           class="col-12 col-lg-5 align-items-center justify-content-end nav-icon d-lg-flex"
         >
-          <div class="info-wrapper">
+          <div class="info-wrapper" ref="infoWrapper">
             <h1 class="heading" v-if="block.title">
               <span v-for="(row, index) in block.title" :key="index"
                 >{{ row.line }}<br
@@ -38,34 +38,7 @@
                 >
               </template>
             </div>
-            <!-- <a
-						href="https://www.google.com/maps/place/Tattoo+Salvation+%26+Piercing+Redemption/@38.2329626,-85.7135795,17z/data=!3m1!4b1!4m5!3m4!1s0x88690ccea1ab5f89:0x8680c4ad6cecaa9c!8m2!3d38.232991!4d-85.7114353"
-						target="_blank"
-						class="btn btn-main rounded-pill"
-						>Get directions</a
-					> -->
           </div>
-          <!-- <div class="sidenav-bottom">
-            <div class="social-icons">
-              <span
-                ><a
-                  href="https://www.facebook.com/Tattoo-Salvation-Piercing-Redemption-160398690676881"
-                  target="_blank"
-                  class="fb"
-                  aria-label="link to Tattoo Salvation Facebook"
-                  ><i class="fab fa-facebook-f"></i></a
-              ></span>
-              <span
-                ><a
-                  href="https://www.instagram.com/tattoosalvation/"
-                  target="_blank"
-                  class="insta"
-                  aria-label="link to Tattoo Salvation Instagram"
-                  ><i class="fab fa-instagram"></i></a
-              ></span>
-            </div>
-            <p class="copywrite text-right">&#169; 2020 Megaone</p>
-          </div> -->
         </div>
         <div class="col-12 col-lg-7 img-area">
           <div
@@ -73,7 +46,6 @@
             data-wow-delay=".5s"
           >
             <img :src="block.image.url" :alt="block.image.alt" />
-            <!-- <div class="white-overlay"></div> -->
           </div>
         </div>
       </div>
@@ -86,19 +58,36 @@ import Buttons from '~/components/blocks/includes/buttons.vue'
 
 export default {
   name: 'Main',
-    components: {
+  components: {
     Buttons,
   },
   props: {
     block: Object,
   },
+  data() {
+    return {
+      windowWidth: 0,
+      blockHeight: 0,
+    }
+  },
+  mounted() {
+    this.handleResize()
+    if (process.browser) {
+      window.addEventListener('resize', this.handleResize)
+    }
+  },
+  methods: {
+    handleResize() {
+      if (process.browser) {
+        this.blockHeight = this.$refs.infoWrapper.clientHeight
+        this.windowWidth = window.innerWidth
+      }
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.main {
-  height: unset;
-}
 .container-fluid {
   padding: 0;
 }
