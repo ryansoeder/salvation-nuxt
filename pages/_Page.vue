@@ -19,21 +19,10 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Page',
-  data() {
-    return {
-      bc: {
-        title: 'test title',
-        content: 'test content',
-      },
-    }
-  },
-  // transition: {
-  //   name: 'fade',
-  // },
   async fetch({ params, store }) {
     let slug = params.Page
     slug === undefined ? (slug = 'homepage') : (slug = slug)
-    await store.dispatch(`page/get_page`, { slug })
+    await store.dispatch('page/get_page', { slug })
   },
   computed: {
     ...mapState({
@@ -58,6 +47,10 @@ export default {
   watch: {
     '$route.query': '$fetch',
   },
+  transition: {
+    name: 'fade',
+    mode: 'out-in',
+  },
   head() {
     return {
       title: `Tattoo Salvation | ${this.pageInfo.title.rendered}`,
@@ -70,6 +63,10 @@ export default {
         },
       ],
     }
+  },
+  transition: 'fade',
+  key(route) {
+    return route.fullPath
   },
 }
 </script>

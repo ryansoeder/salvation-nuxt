@@ -4,9 +4,10 @@
       v-if="siteOptions && menu"
       :logo="siteOptions.header_logo"
       :menu="menu"
+      :social="siteOptions.social"
     />
     <main>
-      <Nuxt />
+      <Nuxt keep-alive />
     </main>
     <TheFooter
       v-if="siteOptions && menu"
@@ -18,11 +19,6 @@
 </template>
 
 <script>
-// SCRIPTS
-// import jquery from '@/static/js/vendor/jquery-3.6.0.min.js'
-// import bundleJS from '@/static/js/vendor/bundle.min.js'
-// import bootstrapJS from '@/static/js/vendor/bootstrap.min.js'
-// import owlJS from '@/static/js/vendor/owl.carousel.min.js'
 if (process.browser) {
   const script = require('~/assets/js/script.js')
 }
@@ -30,6 +26,7 @@ if (process.browser) {
 // COMPONENTS
 export default {
   name: 'IndexPage',
+
   data() {
     return {
       siteOptions: null,

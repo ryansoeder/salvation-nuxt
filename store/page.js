@@ -8,6 +8,7 @@ export const mutations = {
   SET_PAGES(state, pages) {
     state.pages = pages
   },
+  
   SET_PAGE(state, page) {
     state.page = page[0]
     state.blocks = page[0].acf.blocks

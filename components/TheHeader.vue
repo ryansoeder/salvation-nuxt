@@ -122,24 +122,7 @@
               </nav>
             </div>
             <div class="side-menu-footer">
-              <div class="social-icons">
-                <span
-                  ><a
-                    href="https://www.facebook.com/Tattoo-Salvation-Piercing-Redemption-160398690676881"
-                    target="_blank"
-                    class="fb"
-                    aria-label="link to Tattoo Salvation Facebook"
-                    ><i class="fab fa-facebook-f"></i></a
-                ></span>
-                <span
-                  ><a
-                    href="https://www.instagram.com/tattoosalvation/"
-                    target="_blank"
-                    class="insta"
-                    aria-label="link to Tattoo Salvation Instagram"
-                    ><i class="fab fa-instagram"></i></a
-                ></span>
-              </div>
+              <Social :social="social" />
             </div>
           </div>
         </div>
@@ -160,6 +143,7 @@ export default {
   props: {
     logo: Object,
     menu: Array,
+    social: Array,
   },
   data() {
     return {

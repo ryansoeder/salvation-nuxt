@@ -95,18 +95,18 @@ export default {
     },
   },
   mounted() {
-    this.handleResize()
+    this.handleHeroResize()
     if (process.browser) {
-      window.addEventListener('resize', this.handleResize)
+      window.addEventListener('resize', this.handleHeroResize)
     }
   },
   destroyed() {
     if (process.browser) {
-      window.removeEventListener('resize', this.handleResize)
+      window.removeEventListener('resize', this.handleHeroResize)
     }
   },
   methods: {
-    handleResize() {
+    handleHeroResize() {
       if (process.browser) {
         this.width = window.innerWidth
       }

@@ -1,5 +1,8 @@
 <template>
-  <section class="block main info-sec" :style="{height: windowWidth <= 992 ? 'auto' : blockHeight + 'px'}">
+  <section
+    class="block main info-sec"
+    :style="{ height: windowWidth <= 992 ? 'auto' : blockHeight + 'px' }"
+  >
     <div class="container-fluid">
       <div :class="['row', 'no-gutters', block.content_position]">
         <div
@@ -71,13 +74,18 @@ export default {
     }
   },
   mounted() {
-    this.handleResize()
+    this.handleMainResize()
     if (process.browser) {
-      window.addEventListener('resize', this.handleResize)
+      window.addEventListener('resize', this.handleMainResize)
+    }
+  },
+  destroyed() {
+    if (process.browser) {
+      window.removeEventListener('resize', this.handleMainResize)
     }
   },
   methods: {
-    handleResize() {
+    handleMainResize() {
       if (process.browser) {
         this.blockHeight = this.$refs.infoWrapper.clientHeight
         this.windowWidth = window.innerWidth
