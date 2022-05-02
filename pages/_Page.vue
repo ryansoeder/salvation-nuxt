@@ -1,15 +1,27 @@
 <template>
   <div>
     <template v-if="pageInfo">
-      <div v-if="dynamicBlocks" class="blocks">
-        <template v-for="(dynamicBlock, index) in dynamicBlocks">
-          <Component
+      <Transition
+        appear
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+      >
+        <div v-if="blocks" class="blocks">
+          <template v-for="(block, index) in blocks">
+            <!-- <Component
             :is="dynamicBlock.blockName"
             :block="dynamicBlock.blockInfo"
             :key="index"
-          />
-        </template>
-      </div>
+          /> -->
+            <NuxtDynamic
+              :component="block.acf_fc_layout"
+              :block="block"
+              hydration="WhenVisible"
+              :key="index"
+            />
+          </template>
+        </div>
+      </Transition>
     </template>
   </div>
 </template>
@@ -19,11 +31,12 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Page',
-  async fetch({ params, store }) {
+  async asyncData({ params, store }) {
     let slug = params.Page
     slug === undefined ? (slug = 'homepage') : (slug = slug)
     await store.dispatch('page/get_page', { slug })
   },
+  // transition: 'fade',
   computed: {
     ...mapState({
       pageInfo: (state) => {
@@ -33,24 +46,20 @@ export default {
         return state.page.blocks
       },
     }),
-    dynamicBlocks() {
-      return this.blocks.map((block) => {
-        let newObj = {
-          blockInfo: block,
-          blockName: () =>
-            import(`~/components/blocks/${block.acf_fc_layout}.vue`),
-        }
-        return newObj
-      })
-    },
+    // dynamicBlocks() {
+    //   return this.blocks.map((block) => {
+    //     let newObj = {
+    //       blockInfo: block,
+    //       blockName: () =>
+    //         import(`~/components/blocks/${block.acf_fc_layout}.vue`),
+    //     }
+    //     return newObj
+    //   })
+    // },
   },
-  watch: {
-    '$route.query': '$fetch',
-  },
-  transition: {
-    name: 'fade',
-    mode: 'out-in',
-  },
+  // watch: {
+  //   '$route.query': '$fetch',
+  // },
   head() {
     return {
       title: `Tattoo Salvation | ${this.pageInfo.title.rendered}`,
@@ -64,7 +73,6 @@ export default {
       ],
     }
   },
-  transition: 'fade',
   key(route) {
     return route.fullPath
   },

@@ -7,7 +7,7 @@
       :social="siteOptions.social"
     />
     <main>
-      <Nuxt keep-alive />
+      <Nuxt />
     </main>
     <TheFooter
       v-if="siteOptions && menu"

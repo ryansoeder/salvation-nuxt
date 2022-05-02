@@ -1,198 +1,209 @@
 <template>
   <div>
     <template v-if="artistInfo">
-      <!-- <transition name="fade"> -->
-      <section class="services-sec portfolio-sec artist padding-top">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-lg-6">
-              <Transition
-                appear
-                enter-active-class="animated slideInLeft"
-                leave-active-class="animated slideOutLeft"
-              >
-                <div
-                  class="headshot image-holder"
-                  :style="{
-                    backgroundImage: 'url(' + artistInfo.acf.mug_shot.url + ')',
-                  }"
-                  v-if="artistInfo.acf.mug_shot"
-                >
-                  <span
-                    v-if="artistInfo.acf.mug_shot"
-                    class="visually-hidden"
-                    role="img"
-                    :aria-label="artistInfo.acf.mug_shot.alt"
-                    >$nbsp;</span
-                  >
-                </div>
-              </Transition>
-            </div>
-            <div class="col-12 col-lg-6">
-              <div class="heading-area">
+      <Transition
+        appear
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+      >
+        <section class="services-sec portfolio-sec artist padding-top">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-6">
                 <Transition
                   appear
                   enter-active-class="animated slideInLeft"
                   leave-active-class="animated slideOutLeft"
                 >
-                  <h4 v-if="artistInfo.title.rendered" class="heading">
-                    {{ artistInfo.title.rendered }}
-                  </h4>
+                  <div
+                    class="headshot image-holder"
+                    :style="{
+                      backgroundImage:
+                        'url(' + artistInfo.acf.mug_shot.url + ')',
+                    }"
+                    v-if="artistInfo.acf.mug_shot"
+                  >
+                    <span
+                      v-if="artistInfo.acf.mug_shot"
+                      class="visually-hidden"
+                      role="img"
+                      :aria-label="artistInfo.acf.mug_shot.alt"
+                      >$nbsp;</span
+                    >
+                  </div>
                 </Transition>
               </div>
-              <Transition
-                appear
-                enter-active-class="animated slideInUp"
-                leave-active-class="animated slideOutUp"
-              >
-                <ul
-                  class="services-boxes"
-                  v-if="
-                    artistInfo.acf.instagram_handle ||
-                    artistInfo.acf.consultation_form_url ||
-                    artistInfo.acf.consultation_email ||
-                    artistInfo.acf.bio
-                  "
-                >
-                  <li
-                    v-if="artistInfo.acf.instagram_handle"
-                    class="service-card right column-card text-center"
-                  >
-                    <a
-                      v-if="artistInfo.acf.instagram_handle"
-                      aria-label="Instagram icon links to artist instagram page"
-                      class="icon-holder"
-                      :href="
-                        'https://www.instagram.com/' +
-                        artistInfo.acf.instagram_handle +
-                        '/'
-                      "
-                      target="_blank"
-                    >
-                      <span><i class="fab fa-instagram"></i></span>
-                    </a>
-                    <a
-                      v-if="artistInfo.acf.instagram_handle"
-                      :href="
-                        'https://www.instagram.com/' +
-                        artistInfo.acf.instagram_handle +
-                        '/'
-                      "
-                      target="_blank"
-                      >@{{ artistInfo.acf.instagram_handle }}</a
-                    >
-                  </li>
-                  <li
-                    v-if="
-                      artistInfo.acf.consultation_form_url ||
-                      artistInfo.acf.consultation_email
-                    "
-                    class="service-card left"
-                  >
-                    <a
-                      v-if="artistInfo.acf.consultation_form_url"
-                      class="icon-holder"
-                      :href="artistInfo.acf.consultation_form_url"
-                      target="_blank"
-                      aria-label="envelop icon linking to consultation form"
-                    >
-                      <i class="lni lni-envelope"></i>
-                    </a>
-                    <a
-                      v-if="artistInfo.acf.consultation_form_url"
-                      :href="artistInfo.acf.consultation_form_url"
-                      target="_blank"
-                      class="btn btn-main rounded-pill"
-                      >Consultation w/
-                      {{ artistInfo.title.rendered.split(' ')[0] }}</a
-                    >
-                    <a
-                      v-if="artistInfo.acf.consultation_email"
-                      class="icon-holder"
-                      :href="'mailto:' + artistInfo.acf.consultation_email"
-                      target="_blank"
-                      aria-label="envelop icon to compose contact email"
-                    >
-                      <i class="lni lni-envelope"></i>
-                    </a>
-                    <a
-                      v-if="artistInfo.acf.consultation_email"
-                      class="btn btn-main rounded-pill"
-                      :href="'mailto:' + artistInfo.acf.consultation_email"
-                      target="_blank"
-                      >{{ artistInfo.acf.consultation_email }}</a
-                    >
-                  </li>
-                  <li
-                    v-if="artistInfo.acf.bio"
-                    class="service-card left icon-right text-center text-lg-right"
-                  >
-                    <p
-                      v-if="artistInfo.acf.bio"
-                      class="text order-2 order-lg-1"
-                    >
-                      {{ artistInfo.acf.bio }}
-                    </p>
-                    <div class="icon-holder order-1 order-lg-2">
-                      <img
-                        class="card-logo"
-                        src="~/assets/circle-logo.svg"
-                        alt="circular Tattoo Salvation logo"
-                      />
-                    </div>
-                  </li>
-                </ul>
-              </Transition>
-            </div>
-          </div>
-        </div>
-        <section class="block artist slider">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-12 col-lg-4">
-                <div class="heading-area long-area">
-                  <Transition
-                    appear
-                    enter-active-class="animated slideInRight"
-                    leave-active-class="animated slideOutRight"
-                  >
-                    <h4 class="heading" v-if="artistInfo.acf.portfolio_title">
-                      {{ artistInfo.acf.portfolio_title }}
-                    </h4>
-                  </Transition>
-                </div>
-              </div>
-              <div class="col-12 col-lg-8 position-relative">
-                <div>
+              <div class="col-12 col-lg-6">
+                <div class="heading-area">
                   <Transition
                     appear
                     enter-active-class="animated slideInLeft"
                     leave-active-class="animated slideOutLeft"
                   >
-                    <template v-if="artistInfo.acf.portfolio">
-                      <VueSlickCarousel v-bind="settings">
-                        <div
-                          class="item"
-                          v-for="(row, index) in artistInfo.acf.portfolio"
-                          :key="index"
-                        >
-                          <img :src="row.url" :alt="row.alt" />
-                        </div>
-                      </VueSlickCarousel>
-                    </template>
+                    <h4 v-if="artistInfo.title.rendered" class="heading">
+                      {{ artistInfo.title.rendered }}
+                    </h4>
                   </Transition>
                 </div>
+                <Transition
+                  appear
+                  enter-active-class="animated slideInUp"
+                  leave-active-class="animated slideOutUp"
+                >
+                  <ul
+                    class="services-boxes"
+                    v-if="
+                      artistInfo.acf.instagram_handle ||
+                      artistInfo.acf.consultation_form_url ||
+                      artistInfo.acf.consultation_email ||
+                      artistInfo.acf.bio
+                    "
+                  >
+                    <li
+                      v-if="artistInfo.acf.instagram_handle"
+                      class="service-card right column-card text-center"
+                    >
+                      <a
+                        v-if="artistInfo.acf.instagram_handle"
+                        aria-label="Instagram icon links to artist instagram page"
+                        class="icon-holder"
+                        :href="
+                          'https://www.instagram.com/' +
+                          artistInfo.acf.instagram_handle +
+                          '/'
+                        "
+                        target="_blank"
+                      >
+                        <span><i class="fab fa-instagram"></i></span>
+                      </a>
+                      <a
+                        v-if="artistInfo.acf.instagram_handle"
+                        :href="
+                          'https://www.instagram.com/' +
+                          artistInfo.acf.instagram_handle +
+                          '/'
+                        "
+                        target="_blank"
+                        >@{{ artistInfo.acf.instagram_handle }}</a
+                      >
+                    </li>
+                    <li
+                      v-if="
+                        artistInfo.acf.consultation_form_url ||
+                        artistInfo.acf.consultation_email
+                      "
+                      class="service-card left"
+                    >
+                      <a
+                        v-if="artistInfo.acf.consultation_form_url"
+                        class="icon-holder"
+                        :href="artistInfo.acf.consultation_form_url"
+                        target="_blank"
+                        aria-label="envelop icon linking to consultation form"
+                      >
+                        <i class="lni lni-envelope"></i>
+                      </a>
+                      <a
+                        v-if="artistInfo.acf.consultation_form_url"
+                        :href="artistInfo.acf.consultation_form_url"
+                        target="_blank"
+                        class="btn btn-main rounded-pill"
+                        >Consultation w/
+                        {{ artistInfo.title.rendered.split(' ')[0] }}</a
+                      >
+                      <a
+                        v-if="artistInfo.acf.consultation_email"
+                        class="icon-holder"
+                        :href="'mailto:' + artistInfo.acf.consultation_email"
+                        target="_blank"
+                        aria-label="envelop icon to compose contact email"
+                      >
+                        <i class="lni lni-envelope"></i>
+                      </a>
+                      <a
+                        v-if="artistInfo.acf.consultation_email"
+                        class="btn btn-main rounded-pill"
+                        :href="'mailto:' + artistInfo.acf.consultation_email"
+                        target="_blank"
+                        >{{ artistInfo.acf.consultation_email }}</a
+                      >
+                    </li>
+                    <li
+                      v-if="artistInfo.acf.bio"
+                      class="service-card left icon-right text-center text-lg-right"
+                    >
+                      <p
+                        v-if="artistInfo.acf.bio"
+                        class="text order-2 order-lg-1"
+                      >
+                        {{ artistInfo.acf.bio }}
+                      </p>
+                      <div class="icon-holder order-1 order-lg-2">
+                        <img
+                          class="card-logo"
+                          src="~/assets/circle-logo.svg"
+                          alt="circular Tattoo Salvation logo"
+                        />
+                      </div>
+                    </li>
+                  </ul>
+                </Transition>
               </div>
             </div>
           </div>
+          <section class="block artist slider">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-lg-4">
+                  <div class="heading-area long-area">
+                    <Transition
+                      appear
+                      enter-active-class="animated slideInRight"
+                      leave-active-class="animated slideOutRight"
+                    >
+                      <h4 class="heading" v-if="artistInfo.acf.portfolio_title">
+                        {{ artistInfo.acf.portfolio_title }}
+                      </h4>
+                    </Transition>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-8 position-relative">
+                  <div>
+                    <Transition
+                      appear
+                      enter-active-class="animated slideInLeft"
+                      leave-active-class="animated slideOutLeft"
+                    >
+                      <template v-if="artistInfo.acf.portfolio">
+                        <VueSlickCarousel v-bind="settings">
+                          <div
+                            class="item"
+                            v-for="(row, index) in artistInfo.acf.portfolio"
+                            :key="index"
+                          >
+                            <img :src="row.url" :alt="row.alt" />
+                          </div>
+                        </VueSlickCarousel>
+                      </template>
+                    </Transition>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </section>
-      </section>
-      <!-- </transition> -->
-      <div v-if="dynamicBlocks" class="blocks">
-        <template v-for="(dynamicBlock, index) in dynamicBlocks">
-          <Component
+      </Transition>
+      <div v-if="blocks" class="blocks">
+        <template v-for="(block, index) in block">
+          <!-- <Component
             :is="dynamicBlock.blockName"
             :block="dynamicBlock.blockInfo"
+            :key="index"
+          /> -->
+          <NuxtDynamic
+            :component="block.acf_fc_layout"
+            :block="block"
+            hydration="WhenVisible"
             :key="index"
           />
         </template>
@@ -227,7 +238,7 @@ export default {
       },
     }
   },
-  async fetch({ params, store }) {
+  async asyncData({ params, store }) {
     let slug = params.Artist
     await store.dispatch(`artist/get_artist`, { slug })
   },
@@ -240,18 +251,18 @@ export default {
         return state.artist.blocks
       },
     }),
-    dynamicBlocks() {
-      if (this.blocks) {
-        return this.blocks.map((value) => {
-          let newObj = {
-            blockInfo: value,
-            blockName: () =>
-              import(`~/components/blocks/${value.acf_fc_layout}.vue`),
-          }
-          return newObj
-        })
-      }
-    },
+    // dynamicBlocks() {
+    //   if (this.blocks) {
+    //     return this.blocks.map((value) => {
+    //       let newObj = {
+    //         blockInfo: value,
+    //         blockName: () =>
+    //           import(`~/components/blocks/${value.acf_fc_layout}.vue`),
+    //       }
+    //       return newObj
+    //     })
+    //   }
+    // },
   },
   head() {
     return {
@@ -265,6 +276,9 @@ export default {
         },
       ],
     }
+  },
+  key(route) {
+    return route.fullPath
   },
 }
 </script>

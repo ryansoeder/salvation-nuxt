@@ -59,7 +59,7 @@ export default {
   // pageTransition: 'fade',
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/repositories.js'],
+  plugins: ['~/plugins/repositories.js', '~/plugins/vee-validate.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
@@ -79,7 +79,13 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@blokwise/dynamic',
+    'vue-sweetalert2/nuxt',
   ],
+
+  sweetalert: {
+    confirmButtonColor: '#2b2b2b',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -88,5 +94,5 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: { transpile: ['vee-validate/dist/rules'] },
 }
