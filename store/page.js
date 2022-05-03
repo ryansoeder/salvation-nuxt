@@ -31,7 +31,6 @@ export const actions = {
     const res = await this.$repositories.page.single(slug)
     const { status, data } = res
     if (status === 200) {
-      // const { data } = data
       commit('SET_PAGE', data)
     } else {
       console.log(status)

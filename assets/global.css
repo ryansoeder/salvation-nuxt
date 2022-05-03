@@ -1107,7 +1107,8 @@ header .navbar-brand img {
 a:focus,
 button:focus,
 .btn.focus,
-.btn:focus {
+.btn:focus,
+input:focus {
 	outline: 3px solid #0073E6;
 	outline-offset: 5px;
 }

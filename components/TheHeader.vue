@@ -80,7 +80,7 @@
                         item.menu_item_parent == 0 && internalLink(item.url)
                       "
                       :to="getSlug(item.url)"
-                      @click="showSideMenu = false"
+                      @click.native="showSideMenu = false"
                       >{{ item.title }}</NuxtLink
                     >
                     <a
@@ -101,7 +101,7 @@
                           internalLink(subItem.url)
                         "
                         :to="getSlug(subItem.url)"
-                        @click="showSideMenu = false"
+                        @click.native="showSideMenu = false"
                         >{{ subItem.title }}</NuxtLink
                       >
                       <a

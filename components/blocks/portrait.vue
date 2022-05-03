@@ -31,9 +31,9 @@
         </div>
         <div class="col-12 col-lg-6">
           <div class="heading-area">
-            <h4 v-if="block.title" class="heading">
+            <h2 v-if="block.title" class="heading">
               {{ block.title }}
-            </h4>
+            </h2>
           </div>
         </div>
       </div>

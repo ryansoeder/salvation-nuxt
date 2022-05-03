@@ -73,7 +73,7 @@ export default {
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: ['@nuxtjs/google-fonts'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -95,4 +95,18 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: { transpile: ['vee-validate/dist/rules'] },
+
+  loading: {
+    name: 'wandering-cubes',
+    color: '#2b2b2b',
+    background: 'white',
+  },
+
+  googleFonts: {
+    families: {
+      Roboto: [400, 500, 700],
+      Montserrat: [300, 400, 600, 700, 800],
+      Raleway: [400],
+    },
+  },
 }

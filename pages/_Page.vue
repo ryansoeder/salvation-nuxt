@@ -1,11 +1,11 @@
 <template>
   <div>
     <template v-if="pageInfo">
-      <Transition
+      <!-- <Transition
         appear
         enter-active-class="animated fadeIn"
         leave-active-class="animated fadeOut"
-      >
+      > -->
         <div v-if="blocks" class="blocks">
           <template v-for="(block, index) in blocks">
             <!-- <Component
@@ -21,7 +21,7 @@
             />
           </template>
         </div>
-      </Transition>
+      <!-- </Transition> -->
     </template>
   </div>
 </template>

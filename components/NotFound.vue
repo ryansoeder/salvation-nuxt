@@ -1,5 +1,4 @@
 <template>
-  <transition name="fade">
     <section class="four-oh-four" v-if="show">
       <div class="wrapper">
         <div class="row">
@@ -13,7 +12,6 @@
         </div>
       </div>
     </section>
-  </transition>
 </template>
 
 <script>

@@ -1,6 +1,8 @@
 <template>
   <section class="block basic-content">
     <div class="wrapper">
+      <h2 class="heading">{{ block.title }}</h2>
+
       <div class="row">
         <div class="col">
           <div class="content">
@@ -9,8 +11,8 @@
                 :action="`http://tattoo-salvation.local/wp-json/contact-form-7/v1/contact-forms/${block.form[0]}/feedback`"
                 method="post"
                 @submit.prevent="
-                  handleSubmit(onSubmit)
-                  formSubmissionHandler($event)
+                  handleSubmit(clientValidate)
+                  formSubmissionHandlerServer($event)
                 "
                 ref="form"
               >
@@ -54,14 +56,12 @@
                 </ValidationProvider>
                 <ValidationProvider
                   v-slot="{ errors }"
-                  rules="required"
+                  rules="required|email"
                   class="validation-span"
                 >
                   <label for="email-address"
                     >Email address
-                    <span class="required-text"
-                      ><i>(required - must be a valid email address)</i></span
-                    ></label
+                    <span class="required-text"><i>(required)</i></span></label
                   >
                   <input
                     v-model="emailAddress"
@@ -146,6 +146,9 @@
 
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { setInteractionMode } from 'vee-validate'
+
+setInteractionMode('lazy')
 
 export default {
   name: 'Form',
@@ -191,7 +194,7 @@ export default {
         validationError,
       }
     },
-    formSubmissionHandler(event) {
+    formSubmissionHandlerServer(event) {
       // https://css-tricks.com/headless-form-submission-with-the-wordpress-rest-api/
 
       const formElement = event.target,
@@ -216,11 +219,11 @@ export default {
           console.log(error)
         })
     },
-    onSubmit() {
+    clientValidate() {
       this.$swal({
         icon: 'success',
         title: 'Success!',
-        text: 'Thanks for getting in touch. An artist will cantact you shortly.',
+        text: 'Thanks for getting in touch. An artist will contact you shortly.',
       })
     },
   },
@@ -229,6 +232,10 @@ export default {
 
 <style scoped lang="scss">
 .block.basic-content {
+  .heading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
   .content {
     margin: 0 auto;
     text-align: center;
@@ -243,6 +250,9 @@ export default {
     }
     input {
       border: 2px solid black;
+      &:focus {
+        
+      }
     }
     .required-text {
       color: #e00000;
@@ -254,7 +264,10 @@ export default {
     .input-invalid-message {
       margin-bottom: 20px;
       margin-top: -20px;
-      color: #e00000;
+      color: white;
+      background-image: linear-gradient(to right, tomato 80%, white);
+      padding-left: 5px;
+      padding-right: 5px;
     }
     button[type='submit'] {
       width: 256px;

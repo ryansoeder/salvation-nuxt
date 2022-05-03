@@ -100,9 +100,15 @@ nav {
   }
 }
 .footer-img {
-  width: 200px;
-  min-width: 150px;
-  padding-right: 20px;
+  width: 150px;
+  padding-right: 30px;
+  @media (max-width: 700px) {
+    width: 100px;
+    padding-right: 0;
+  }
+    @media (max-width: 500px) {
+    width: 80px;
+  }
 }
 .footer-menu {
   display: flex;
@@ -116,6 +122,14 @@ nav {
   }
   > li {
     margin-right: 20px;
+    @media (max-width: 700px) {
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+    @media (max-width: 500px) {
+      margin-right: 0;
+    }
   }
   a {
     font-weight: bold;
