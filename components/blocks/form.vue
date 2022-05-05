@@ -148,7 +148,7 @@
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { setInteractionMode } from 'vee-validate'
 
-setInteractionMode('lazy')
+setInteractionMode('eager')
 
 export default {
   name: 'Form',

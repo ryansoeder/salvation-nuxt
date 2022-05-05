@@ -11,7 +11,7 @@ export const mutations = {
   
   SET_PAGE(state, page) {
     state.page = page[0]
-    state.blocks = page[0].acf.blocks
+    state.blocks = page[0] ? page[0].acf.blocks : []
   },
 }
 
@@ -29,6 +29,8 @@ export const actions = {
 
   async get_page({ commit }, { slug }) {
     const res = await this.$repositories.page.single(slug)
+    // console.log(res)
+
     const { status, data } = res
     if (status === 200) {
       commit('SET_PAGE', data)

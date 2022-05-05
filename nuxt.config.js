@@ -94,7 +94,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: { transpile: ['vee-validate/dist/rules'] },
+  build: { transpile: ['vee-validate/dist/rules'], fallback: '404.html' },
 
   loading: {
     name: 'wandering-cubes',

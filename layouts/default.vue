@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="site-wrapper">
     <TheHeader
       v-if="siteOptions && menu"
       :logo="siteOptions.header_logo"
@@ -46,3 +46,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.site-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</style>
