@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -90,17 +92,15 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://tattoo-salvation.local/wp-json/wp/v2',
+    baseURL:
+      process.env.ENVIRONMENT === 'production' ||
+      process.env.ENVIRONMENT === 'staging'
+        ? 'http://content.tattoosalvation.com/wp-json/wp/v2'
+        : 'http://tattoo-salvation.local/wp-json/wp/v2',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: { transpile: ['vee-validate/dist/rules'], fallback: '404.html' },
-
-  loading: {
-    name: 'wandering-cubes',
-    color: '#2b2b2b',
-    background: 'white',
-  },
 
   googleFonts: {
     families: {
@@ -109,4 +109,6 @@ export default {
       Raleway: [400],
     },
   },
+
+  // target: 'static',
 }

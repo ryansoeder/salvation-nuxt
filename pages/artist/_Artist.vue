@@ -251,19 +251,24 @@ export default {
         return state.artist.blocks
       },
     }),
-    // dynamicBlocks() {
-    //   if (this.blocks) {
-    //     return this.blocks.map((value) => {
-    //       let newObj = {
-    //         blockInfo: value,
-    //         blockName: () =>
-    //           import(`~/components/blocks/${value.acf_fc_layout}.vue`),
-    //       }
-    //       return newObj
-    //     })
-    //   }
-    // },
   },
+  mounted(context) {
+    if (!this.artistInfo) {
+      context.error({ statusCode: 404, message: 'oops!' })
+    }
+  },
+  // dynamicBlocks() {
+  //   if (this.blocks) {
+  //     return this.blocks.map((value) => {
+  //       let newObj = {
+  //         blockInfo: value,
+  //         blockName: () =>
+  //           import(`~/components/blocks/${value.acf_fc_layout}.vue`),
+  //       }
+  //       return newObj
+  //     })
+  //   }
+  // },
   head() {
     return {
       title: `Tattoo Saltation | ${this.artistInfo.title.rendered}`,
