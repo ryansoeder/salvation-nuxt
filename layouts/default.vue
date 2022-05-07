@@ -35,12 +35,12 @@ export default {
   },
   async fetch() {
     const res = await fetch(
-      `http://content.tattoosalvation.com/wp-json/wp/v2/site_options/`
+      `https://content.tattoosalvation.com/wp-json/wp/v2/site_options/`
     )
     const options = await res.json()
     this.siteOptions = await options[0]
     const menuRes = await fetch(
-      'http://content.tattoosalvation.com/wp-json/wp/v2/main_menu'
+      'https://content.tattoosalvation.com/wp-json/wp/v2/main_menu'
     )
     this.menu = await menuRes.json()
   },
