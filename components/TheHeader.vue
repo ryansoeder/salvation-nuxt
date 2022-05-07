@@ -155,7 +155,7 @@ export default {
   methods: {
     internalLink(url) {
       const newRL = new URL(url)
-      if (newRL.hostname === 'tattoo-salvation.local') {
+      if (newRL.hostname === 'content.tattoosalvation.com') {
         return true
       } else {
         return false

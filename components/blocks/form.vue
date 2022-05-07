@@ -8,7 +8,7 @@
           <div class="content">
             <ValidationObserver v-slot="{ handleSubmit }">
               <form
-                :action="`http://tattoo-salvation.local/wp-json/contact-form-7/v1/contact-forms/${block.form[0]}/feedback`"
+                :action="`http://content.tattoosalvation.com/wp-json/contact-form-7/v1/contact-forms/${block.form[0]}/feedback`"
                 method="post"
                 @submit.prevent="
                   handleSubmit(clientValidate)
