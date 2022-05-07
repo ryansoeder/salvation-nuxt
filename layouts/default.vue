@@ -19,14 +19,8 @@
 </template>
 
 <script>
-if (process.browser) {
-  const script = require('~/assets/js/script.js')
-}
-
-// COMPONENTS
 export default {
   name: 'IndexPage',
-
   data() {
     return {
       siteOptions: null,
@@ -34,15 +28,21 @@ export default {
     }
   },
   async fetch() {
-    const res = await fetch(
-      `https://content.tattoosalvation.com/wp-json/wp/v2/site_options/`
-    )
+    const apiURL =
+      process.env.NUXT_ENV_ENVIRONMENT === 'production' ||
+      process.env.NUXT_ENV_ENVIRONMENT === 'staging'
+        ? 'https://content.tattoosalvation.com/wp-json/wp/v2'
+        : 'http://tattoo-salvation.local/wp-json/wp/v2'
+
+    const res = await fetch(`${apiURL}/site_options/`)
     const options = await res.json()
     this.siteOptions = await options[0]
-    const menuRes = await fetch(
-      'https://content.tattoosalvation.com/wp-json/wp/v2/main_menu'
-    )
+    
+    const menuRes = await fetch(`${apiURL}/main_menu`)
     this.menu = await menuRes.json()
+  },
+  mounted() {
+    const script = require('~/assets/js/script.js')
   },
 }
 </script>

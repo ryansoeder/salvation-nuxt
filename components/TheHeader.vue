@@ -154,8 +154,15 @@ export default {
   },
   methods: {
     internalLink(url) {
+      const host =
+        process.env.NUXT_ENV_ENVIRONMENT === 'production' ||
+        process.env.NUXT_ENV_ENVIRONMENT === 'staging'
+          ? 'content.tattoosalvation.com'
+          : 'tattoo-salvation.local'
+
       const newRL = new URL(url)
-      if (newRL.hostname === 'tattoo-salvation.local') {
+
+      if (newRL.hostname === host) {
         return true
       } else {
         return false

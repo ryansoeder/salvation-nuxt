@@ -46,8 +46,15 @@ export default {
   },
   methods: {
     internalLink(url) {
+      const host =
+        process.env.NUXT_ENV_ENVIRONMENT === 'production' ||
+        process.env.NUXT_ENV_ENVIRONMENT === 'staging'
+          ? 'content.tattoosalvation.com'
+          : 'tattoo-salvation.local'
+
       const newRL = new URL(url)
-      if (newRL.hostname === 'content.tattoosalvation.com') {
+
+      if (newRL.hostname === host) {
         return true
       } else {
         return false
@@ -106,7 +113,7 @@ nav {
     width: 100px;
     padding-right: 0;
   }
-    @media (max-width: 500px) {
+  @media (max-width: 500px) {
     width: 80px;
   }
 }
