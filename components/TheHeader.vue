@@ -170,6 +170,7 @@ export default {
     },
     getSlug(url) {
       const newRL = new URL(url)
+      console.log(newRL.pathname)
       return newRL.pathname
     },
     hasSubItems(parentID) {
