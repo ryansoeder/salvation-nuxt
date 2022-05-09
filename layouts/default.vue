@@ -1,6 +1,5 @@
 <template>
   <div class="site-wrapper">
-    <h1>START ME UP</h1>
     <TheHeader
       v-if="siteOptions && menu"
       :logo="siteOptions.header_logo"
