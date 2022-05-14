@@ -28,10 +28,10 @@
                   <NuxtLink
                     v-if="internalLink(item.url)"
                     :to="getSlug(item.url)"
-                    >{{ item.title }}</NuxtLink
+                    >{{ item.title + ' nuxt' }}</NuxtLink
                   >
                   <a v-else :href="item.url" target="_blank">{{
-                    item.title
+                    item.title + ' link'
                   }}</a>
                   <ul class="sub-menu" v-if="hasSubItems(item.ID)">
                     <template v-for="subItem in menu">
@@ -42,10 +42,10 @@
                         <NuxtLink
                           v-if="internalLink(subItem.url)"
                           :to="getSlug(subItem.url)"
-                          >{{ subItem.title }}</NuxtLink
+                          >{{ subItem.title + ' nuxt' }}</NuxtLink
                         >
                         <a v-else :href="subItem.url" target="_blank">{{
-                          subItem.title
+                          subItem.title + ' link'
                         }}</a>
                       </li>
                     </template>
@@ -81,7 +81,7 @@
                       "
                       :to="getSlug(item.url)"
                       @click.native="showSideMenu = false"
-                      >{{ item.title }}</NuxtLink
+                      >{{ item.title + ' nuxt' }}</NuxtLink
                     >
                     <a
                       :key="item.ID + 1"
@@ -90,7 +90,7 @@
                       :href="item.url"
                       target="_blank"
                       @click="showSideMenu = false"
-                      >{{ item.title }}</a
+                      >{{ item.title + ' link' }}</a
                     >
                     <template v-for="subItem in menu">
                       <NuxtLink
@@ -102,7 +102,7 @@
                         "
                         :to="getSlug(subItem.url)"
                         @click.native="showSideMenu = false"
-                        >{{ subItem.title }}</NuxtLink
+                        >{{ subItem.title + ' nuxt' }}</NuxtLink
                       >
                       <a
                         :key="subItem.ID"
@@ -111,7 +111,7 @@
                         :href="subItem.url"
                         target="_blank"
                         @click="showSideMenu = false"
-                        >{{ subItem.title }}</a
+                        >{{ subItem.title + ' link' }}</a
                       >
                     </template>
                   </template>
@@ -155,10 +155,9 @@ export default {
   methods: {
     internalLink(url) {
       const host =
-        process.env.NUXT_ENV_ENVIRONMENT === 'production' ||
-        process.env.NUXT_ENV_ENVIRONMENT === 'staging'
-          ? 'content.tattoosalvation.com'
-          : 'tattoo-salvation.local'
+        process.env.NUXT_ENV_ENVIRONMENT === 'local'
+          ? 'tattoo-salvation.local'
+          : 'content.tattoosalvation.com'
 
       const newRL = new URL(url)
 

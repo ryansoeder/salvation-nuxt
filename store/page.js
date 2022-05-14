@@ -29,7 +29,6 @@ export const actions = {
 
   async get_page({ commit }, { slug }) {
     const res = await this.$repositories.page.single(slug)
-    // console.log(res)
 
     const { status, data } = res
     if (status === 200) {

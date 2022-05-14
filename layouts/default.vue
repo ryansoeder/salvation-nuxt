@@ -29,15 +29,13 @@ export default {
   },
   async fetch() {
     const apiURL =
-      process.env.NUXT_ENV_ENVIRONMENT === 'production' ||
-      process.env.NUXT_ENV_ENVIRONMENT === 'staging'
-        ? 'https://content.tattoosalvation.com/wp-json/wp/v2'
-        : 'http://tattoo-salvation.local/wp-json/wp/v2'
-
-    const res = await fetch(`${apiURL}/site_options/`)
+      process.env.NUXT_ENV_ENVIRONMENT === 'local'
+        ? 'http://tattoo-salvation.local/wp-json/wp/v2'
+        : 'https://content.tattoosalvation.com/wp-json/wp/v2'
+    const res = await fetch(`${apiURL}/site_options`)
     const options = await res.json()
     this.siteOptions = await options[0]
-    
+
     const menuRes = await fetch(`${apiURL}/main_menu`)
     this.menu = await menuRes.json()
   },

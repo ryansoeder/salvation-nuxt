@@ -91,10 +91,9 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL:
-      process.env.NUXT_ENV_ENVIRONMENT === 'production' ||
-      process.env.NUXT_ENV_ENVIRONMENT === 'staging'
-        ? 'https://content.tattoosalvation.com/wp-json/wp/v2'
-        : 'http://tattoo-salvation.local/wp-json/wp/v2',
+      process.env.NUXT_ENV_ENVIRONMENT === 'local'
+        ? 'http://tattoo-salvation.local/wp-json/wp/v2'
+        : 'https://content.tattoosalvation.com/wp-json/wp/v2',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

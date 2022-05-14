@@ -47,10 +47,9 @@ export default {
   methods: {
     internalLink(url) {
       const host =
-        process.env.NUXT_ENV_ENVIRONMENT === 'production' ||
-        process.env.NUXT_ENV_ENVIRONMENT === 'staging'
-          ? 'content.tattoosalvation.com'
-          : 'tattoo-salvation.local'
+        process.env.NUXT_ENV_ENVIRONMENT === 'local'
+          ? 'tattoo-salvation.local'
+          : 'content.tattoosalvation.com'
 
       const newRL = new URL(url)
 
