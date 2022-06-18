@@ -31,7 +31,8 @@
               v-html="block.content"
             ></div>
             <div class="inquiries" v-if="block.enable_buttons && block.buttons">
-              <template v-for="(row, index) in block.buttons">
+              <Buttons v-if="block.buttons && block.enable_buttons" :buttons="block.buttons" />
+              <!-- <template v-for="(row, index) in block.buttons">
                 <a
                   :key="index"
                   :href="row.button.url"
@@ -39,7 +40,7 @@
                   class="btn btn-main rounded-pill"
                   >{{ row.button.title }}</a
                 >
-              </template>
+              </template> -->
             </div>
           </div>
         </div>
@@ -74,7 +75,7 @@ export default {
     }
   },
   mounted() {
-    this.handleMainResize()
+    setTimeout(this.handleMainResize(), 300)
     if (process.browser) {
       window.addEventListener('resize', this.handleMainResize)
     }

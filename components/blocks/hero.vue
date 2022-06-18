@@ -48,7 +48,10 @@
             v-if="block.content"
             v-html="block.content"
           ></div>
-          <Buttons v-if="block.buttons" :buttons="block.buttons" />
+          <Buttons
+            v-if="block.buttons && block.enable_buttons"
+            :buttons="block.buttons"
+          />
         </div>
       </div>
     </div>
@@ -124,8 +127,15 @@ export default {
   .heading {
     font-size: 4rem;
     line-height: 1;
+    width: 200%;
     @media (max-width: 992px) {
       font-size: 45px;
+    }
+    @media (max-width: 768px) {
+      width: 170% !important;
+    }
+    @media (max-width: 500px) {
+      width: 100% !important;
     }
   }
   .subtitle {

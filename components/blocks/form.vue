@@ -1,5 +1,5 @@
 <template>
-  <section class="block basic-content">
+  <section id="form" class="block basic-content">
     <div class="wrapper">
       <h2 class="heading">{{ block.title }}</h2>
 

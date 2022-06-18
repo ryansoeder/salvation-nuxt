@@ -10,7 +10,27 @@
           <div class="container">
             <div class="row">
               <div class="col-12 col-lg-6">
-                <Transition
+                <div>
+                  <Transition
+                    appear
+                    enter-active-class="animated slideInLeft"
+                    leave-active-class="animated slideOutLeft"
+                  >
+                    <template v-if="artistInfo.acf.portfolio">
+                      <VueSlickCarousel v-bind="settings">
+                        <div
+                          class="item"
+                          v-for="(row, index) in artistInfo.acf.portfolio"
+                          :key="index"
+                        >
+                          <img :src="row.url" :alt="row.alt" />
+                        </div>
+                      </VueSlickCarousel>
+                    </template>
+                  </Transition>
+                </div>
+
+                <!-- <Transition
                   appear
                   enter-active-class="animated slideInLeft"
                   leave-active-class="animated slideOutLeft"
@@ -31,7 +51,7 @@
                       >$nbsp;</span
                     >
                   </div>
-                </Transition>
+                </Transition> -->
               </div>
               <div class="col-12 col-lg-6">
                 <div class="heading-area">
@@ -95,24 +115,22 @@
                       class="service-card left"
                     >
                       <a
-                        v-if="artistInfo.acf.consultation_form_url"
+                        v-if="artistInfo.acf.consultation_form_url && artistInfo.acf.form_or_email == 'form'"
                         class="icon-holder"
                         :href="artistInfo.acf.consultation_form_url"
-                        target="_blank"
                         aria-label="envelop icon linking to consultation form"
                       >
                         <i class="lni lni-envelope"></i>
                       </a>
                       <a
-                        v-if="artistInfo.acf.consultation_form_url"
+                        v-if="artistInfo.acf.consultation_form_url && artistInfo.acf.form_or_email == 'form'"
                         :href="artistInfo.acf.consultation_form_url"
-                        target="_blank"
                         class="btn btn-main rounded-pill"
                         >Consultation w/
                         {{ artistInfo.title.rendered.split(' ')[0] }}</a
                       >
                       <a
-                        v-if="artistInfo.acf.consultation_email"
+                        v-if="artistInfo.acf.consultation_email && artistInfo.acf.form_or_email == 'email'"
                         class="icon-holder"
                         :href="'mailto:' + artistInfo.acf.consultation_email"
                         target="_blank"
@@ -121,7 +139,7 @@
                         <i class="lni lni-envelope"></i>
                       </a>
                       <a
-                        v-if="artistInfo.acf.consultation_email"
+                        v-if="artistInfo.acf.consultation_email && artistInfo.acf.form_or_email == 'email'"
                         class="btn btn-main rounded-pill"
                         :href="'mailto:' + artistInfo.acf.consultation_email"
                         target="_blank"
@@ -151,7 +169,7 @@
               </div>
             </div>
           </div>
-          <section class="block artist slider">
+          <!-- <section class="block artist slider">
             <div class="container-fluid">
               <div class="row">
                 <div class="col-12 col-lg-4">
@@ -190,11 +208,11 @@
                 </div>
               </div>
             </div>
-          </section>
+          </section> -->
         </section>
       </Transition>
       <div v-if="blocks" class="blocks">
-        <template v-for="(block, index) in block">
+        <template v-for="(block, index) in blocks">
           <!-- <Component
             :is="dynamicBlock.blockName"
             :block="dynamicBlock.blockInfo"
