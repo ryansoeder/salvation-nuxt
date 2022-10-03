@@ -32,6 +32,7 @@ export default {
       process.env.NUXT_ENV_ENVIRONMENT === 'local'
         ? 'http://tattoo-salvation.local/wp-json/wp/v2'
         : 'https://content.tattoosalvation.com/wp-json/wp/v2'
+
     const res = await fetch(`${apiURL}/site_options`)
     const options = await res.json()
     this.siteOptions = await options[0]

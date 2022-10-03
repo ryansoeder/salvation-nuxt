@@ -36,7 +36,6 @@ export default {
     slug === undefined ? (slug = 'homepage') : (slug = slug)
     await store.dispatch('page/get_page', { slug })
   },
-  // transition: 'fade',
   computed: {
     ...mapState({
       pageInfo: (state) => {

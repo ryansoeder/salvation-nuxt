@@ -223,7 +223,7 @@ export default {
       this.$swal({
         icon: 'success',
         title: 'Success!',
-        text: 'Thanks for getting in touch. An artist will contact you shortly.',
+        text: 'Please note that reponses can take up to 1 week. If you have not heard form us in that time, check your spam folders before reaching back out. Thanks!',
       })
     },
   },
