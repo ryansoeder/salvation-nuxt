@@ -2,7 +2,6 @@
   <section id="form" class="block basic-content">
     <div class="wrapper">
       <h2 class="heading">{{ block.title }}</h2>
-      {{ block }}
       <div class="row">
         <div class="col">
           <div class="content">
