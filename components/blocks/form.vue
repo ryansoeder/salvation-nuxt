@@ -2,7 +2,7 @@
   <section id="form" class="block basic-content">
     <div class="wrapper">
       <h2 class="heading">{{ block.title }}</h2>
-
+      {{ block }}
       <div class="row">
         <div class="col">
           <div class="content">
@@ -111,6 +111,87 @@
                     {{ errors[0] }}
                   </span>
                 </ValidationProvider>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                  class="validation-span radios"
+                >
+                  <span class="radio-heading"
+                    >Color
+                    <span class="required-text"><i>(required)</i></span></span
+                  >
+                  <div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="color"
+                        id="black-gray"
+                        value="Black and gray"
+                        v-model="color"
+                      />
+                      <label for="black-gray">Black and gray</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="color"
+                        id="color"
+                        value="Color"
+                        v-model="color"
+                      />
+                      <label for="color">Color</label>
+                    </div>
+                  </div>
+                  <span class="input-invalid-message">
+                    {{ errors[0] }}
+                  </span>
+                </ValidationProvider>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                  class="validation-span radios"
+                  v-if="block.form[0] === 295"
+                > <!-- general consultation form -->
+                  <span class="radio-heading"
+                    >Tattoo Style
+                    <span class="required-text"><i>(required)</i></span></span
+                  >
+                  <div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="style"
+                        id="realistic"
+                        value="Realistic"
+                        v-model="style"
+                      />
+                      <label for="realistic">Realistic</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="style"
+                        id="traditional"
+                        value="Traditional"
+                        v-model="style"
+                      />
+                      <label for="traditional">Traditional</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="style"
+                        id="other"
+                        value="Other"
+                        v-model="style"
+                      />
+                      <label for="other">Other (describe below)</label>
+                    </div>
+                  </div>
+                  <span class="input-invalid-message">
+                    {{ errors[0] }}
+                  </span>
+                </ValidationProvider>
                 <ValidationProvider v-slot="{ errors }" class="validation-span">
                   <label for="specifics"
                     >Any specifics you want included (ex: time on a clock,
@@ -166,6 +247,7 @@ export default {
       emailAddress: null,
       location: null,
       description: null,
+      color: null,
       specifics: null,
       budget: null,
     }
@@ -251,7 +333,6 @@ export default {
     input {
       border: 2px solid black;
       &:focus {
-        
       }
     }
     .required-text {
@@ -260,6 +341,18 @@ export default {
     .validation-span {
       display: flex;
       flex-direction: column;
+      &.radios {
+        margin-bottom: 20px;
+        .radio-heading{
+          margin-bottom: 5px;
+        }
+        label, input {
+          margin-bottom: 0;
+        }
+        .input-invalid-message {
+          margin: 0;
+        }
+      }
     }
     .input-invalid-message {
       margin-bottom: 20px;
