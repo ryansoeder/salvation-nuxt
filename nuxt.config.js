@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Tattoo Salvation & Piercing Redemption',
+    title: 'Tattoo Salvation',
     htmlAttrs: {
       lang: 'en',
     },
@@ -11,12 +11,12 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'The best tattoos and piercings in Louisillve, KY.',
+        content: 'The best tattoos in Louisillve, KY.',
       },
       {
         name: 'keywords',
         content:
-          'tattoo, piercing, tattoos, piercings, tattooing, piercing, louisville, kentucky, ky, traditional, realism, disposable, black, grey, sterile, color',
+          'tattoo, tattoos, tattooing, louisville, kentucky, ky, traditional, realism, disposable, black, grey, sterile, color',
       },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'msapplication-TileColor', content: '#2d89ef' },
@@ -106,35 +106,39 @@ export default {
       Raleway: [400],
     },
   },
-  router: { //https://dev.to/dimer191996/nuxt-js-smooth-scrolling-with-hash-links-94a
+  router: {
+    //https://dev.to/dimer191996/nuxt-js-smooth-scrolling-with-hash-links-94a
     scrollBehavior: async (to, from, savedPosition) => {
       if (savedPosition) {
         return savedPosition
       }
 
       const findEl = async (hash, x) => {
-        return document.querySelector(hash) ||
+        return (
+          document.querySelector(hash) ||
           new Promise((resolve, reject) => {
             if (x > 50) {
               return resolve()
             }
-            setTimeout(() => { resolve(findEl(hash, ++x || 1)) }, 100)
+            setTimeout(() => {
+              resolve(findEl(hash, ++x || 1))
+            }, 100)
           })
+        )
       }
 
       if (to.hash) {
         let el = await findEl(to.hash)
         if ('scrollBehavior' in document.documentElement.style) {
-          return window.scrollTo({ top: (el.offsetTop), behavior: 'smooth' })
+          return window.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
         } else {
-          return window.scrollTo(0, (el.offsetTop))
+          return window.scrollTo(0, el.offsetTop)
         }
       }
 
       return { x: 0, y: 0 }
-    }
-  }
-
+    },
+  },
 
   // target: 'static',
 }
