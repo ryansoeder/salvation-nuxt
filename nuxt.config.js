@@ -83,6 +83,10 @@ export default {
     'vue-sweetalert2/nuxt',
   ],
 
+  gtm: {
+    id: 'G-21J8JHHXZ7',
+  },
+
   sweetalert: {
     confirmButtonColor: '#2b2b2b',
   },
