@@ -30,6 +30,7 @@ export default {
 	top: 0;
 	left: 0;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	padding: 1rem 2rem;
@@ -45,9 +46,10 @@ export default {
 	}
 	@media (max-width: 500px) {
 		position: absolute;
-		top: -74px;
 	}
-
+	.message {
+		min-width: 200px;
+	}
 	.btn {
 		margin: 0 2rem;
 		border-color: white;

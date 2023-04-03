@@ -29,7 +29,9 @@ $(function ($) {
 			$('.sidenav-bottom').css('opacity', '0');
 			$('header .inner-header').addClass('header-appear');
 			if ($('.header-banner') && window.innerWidth > 500) {
-				$('header .inner-header').css('top', '74px');
+				var bannerHeight = $('.header-banner').height();
+				console.log(bannerHeight);
+				$('header .inner-header').css('top', bannerHeight + 32 + 'px');
 			}
 		}
 		if ($(this).scrollTop() < 260) {

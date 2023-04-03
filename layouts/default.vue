@@ -1,9 +1,10 @@
 <template>
-	<div class="site-wrapper" :style="siteOptions.enable_header_banner ? 'top: 74px;' : ''">
+	<div class="site-wrapper">
 		<HeaderBanner
 			v-if="siteOptions.enable_header_banner"
 			:message="siteOptions.banner_message"
 			:link="siteOptions.banner_link"
+			ref="headerBanner"
 		/>
 		<TheHeader
 			v-if="siteOptions && menu"
@@ -47,6 +48,17 @@ export default {
 	},
 	mounted() {
 		const script = require('~/assets/js/script.js');
+
+		const headerBanner = document.querySelector('.header-banner');
+		const siteWrapper = document.querySelector('.site-wrapper');
+		if (headerBanner) {
+			const height = headerBanner.offsetHeight;
+			siteWrapper.style.top = height + 'px';
+
+			if (window.innerWidth < 500) {
+				headerBanner.style.top = -height + 'px';
+			}
+		}
 	}
 };
 </script>
