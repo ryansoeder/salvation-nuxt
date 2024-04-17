@@ -170,6 +170,13 @@ export default {
       budget: null,
     }
   },
+  async mounted() {
+    try {
+      await this.$recaptcha.init()
+    } catch (e) {
+      console.error(e)
+    }
+  },
   methods: {
     normalizeContactForm7Response(response) {
       // The other possible statuses are different kind of errors
@@ -200,6 +207,9 @@ export default {
       const formElement = event.target,
         { action, method } = formElement,
         body = new FormData(formElement)
+
+      console.log('body')
+      console.log(body)
 
       fetch(action, {
         method,
@@ -251,7 +261,6 @@ export default {
     input {
       border: 2px solid black;
       &:focus {
-        
       }
     }
     .required-text {
