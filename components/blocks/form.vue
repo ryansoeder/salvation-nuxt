@@ -173,6 +173,7 @@ export default {
   async mounted() {
     try {
       await this.$recaptcha.init()
+      console.log('Recaptcha initialized')
     } catch (e) {
       console.error(e)
     }
@@ -206,6 +207,8 @@ export default {
     },
     async formSubmissionHandlerServer(event) {
       const token = await this.$recaptcha.execute('login')
+      console.log('token')
+      console.log(token)
 
       // https://css-tricks.com/headless-form-submission-with-the-wordpress-rest-api/
       const formElement = event.target,
