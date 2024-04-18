@@ -84,7 +84,7 @@ export default {
     '@nuxtjs/recaptcha',
   ],
   recaptcha: {
-    hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
+    hideBadge: true, // Hide badge element (v3 & v2 via size=invisible)
     mode: 'enterprise', // Mode: 'base', 'enterprise'
     siteKey: '6LflI7opAAAAAL-9HCL79URmSnmE0r8crmT7bx0i', // Site key for requests
     version: 3, // Version
