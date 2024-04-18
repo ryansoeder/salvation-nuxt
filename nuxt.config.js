@@ -85,8 +85,18 @@ export default {
 		'@nuxtjs/axios',
 		'@blokwise/dynamic',
 		'vue-sweetalert2/nuxt',
-		'@nuxtjs/gtm'
+		'@nuxtjs/gtm',
+		'@nuxtjs/recaptcha'
 	],
+	recaptcha: {
+		hideBadge: true, // Hide badge element (v3 & v2 via size=invisible)
+		mode: 'enterprise', // Mode: 'base', 'enterprise'
+		siteKey: '6LflI7opAAAAAL-9HCL79URmSnmE0r8crmT7bx0i', // Site key for requests
+		version: 3 // Version
+	},
+	gtm: {
+		id: 'G-21J8JHHXZ7'
+	},
 
 	gtm: {
 		id: 'GTM-NPR9SGL',
@@ -150,7 +160,12 @@ export default {
 
 			return {x: 0, y: 0};
 		}
-	}
+	},
 
+	publicRuntimeConfig: {
+		recaptcha: {
+			siteKey: process.env.RECAPTCHA_SITE_KEY
+		}
+	}
 	// target: 'static',
 };
