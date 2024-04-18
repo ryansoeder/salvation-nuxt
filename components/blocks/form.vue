@@ -177,6 +177,9 @@ export default {
       console.error(e)
     }
   },
+  beforeDestroy() {
+    this.$recaptcha.destroy()
+  },
   methods: {
     normalizeContactForm7Response(response) {
       // The other possible statuses are different kind of errors
@@ -201,12 +204,20 @@ export default {
         validationError,
       }
     },
-    formSubmissionHandlerServer(event) {
-      // https://css-tricks.com/headless-form-submission-with-the-wordpress-rest-api/
+    async formSubmissionHandlerServer(event) {
+      const token = await this.$recaptcha.execute('login')
 
+      // https://css-tricks.com/headless-form-submission-with-the-wordpress-rest-api/
       const formElement = event.target,
         { action, method } = formElement,
         body = new FormData(formElement)
+
+      //recaptcha responses to pass back to CF7
+      body.append('_wpcf7_recaptcha_response', token)
+      body.append('wpcf7_recaptcha_response', token)
+      body.append('recaptcha_response', token)
+      body.append('recaptcha', token)
+      body.append('token', token)
 
       console.log('body')
       console.log(body)
