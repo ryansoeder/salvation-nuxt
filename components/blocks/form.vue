@@ -216,13 +216,6 @@
                   Submit
                 </button>
               </form>
-              <small
-                >This site is protected by reCAPTCHA and the Google
-                <a href="https://policies.google.com/privacy">Privacy Policy</a>
-                and
-                <a href="https://policies.google.com/terms">Terms of Service</a>
-                apply.
-              </small>
             </ValidationObserver>
           </div>
         </div>
@@ -258,16 +251,6 @@ export default {
       budget: null,
     }
   },
-  async mounted() {
-    try {
-      await this.$recaptcha.init()
-    } catch (e) {
-      console.error(e)
-    }
-  },
-  beforeDestroy() {
-    this.$recaptcha.destroy()
-  },
   methods: {
     normalizeContactForm7Response(response) {
       // The other possible statuses are different kind of errors
@@ -292,16 +275,12 @@ export default {
         validationError,
       }
     },
-    async formSubmissionHandlerServer(event) {
-      const token = await this.$recaptcha.execute('login')
-
+    formSubmissionHandlerServer(event) {
       // https://css-tricks.com/headless-form-submission-with-the-wordpress-rest-api/
+
       const formElement = event.target,
         { action, method } = formElement,
         body = new FormData(formElement)
-
-      //recaptcha responses to pass back to CF7
-      body.append('_wpcf7_recaptcha_response', token)
 
       fetch(action, {
         method,
@@ -386,7 +365,6 @@ export default {
       width: 256px;
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: 1rem;
     }
   }
 }
