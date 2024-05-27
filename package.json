@@ -17,6 +17,7 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/google-fonts": "^1.3.0",
     "@nuxtjs/gtm": "^2.3.2",
+    "@nuxtjs/recaptcha": "^1.1.2",
     "@vue/runtime-core": "^3.2.31",
     "core-js": "^3.19.3",
     "jquery": "^3.6.0",
