@@ -229,6 +229,7 @@
 import {mapState} from 'vuex';
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'; // optional style for arrows & dots
+import '@/assets/vendor/css/vue-slick-carousel-button-styles.css';
 import VueSlickCarousel from 'vue-slick-carousel';
 
 export default {

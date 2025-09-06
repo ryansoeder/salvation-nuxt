@@ -299,8 +299,6 @@ export default {
 		}
 		input {
 			border: 2px solid black;
-			&:focus {
-			}
 		}
 		.required-text {
 			color: #e00000;
