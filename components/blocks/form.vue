@@ -9,10 +9,7 @@
 							<form
 								:action="`https://content.tattoosalvation.com/wp-json/contact-form-7/v1/contact-forms/${block.form[0]}/feedback`"
 								method="post"
-								@submit.prevent="
-									handleSubmit(clientValidate);
-									formSubmissionHandlerServer($event);
-								"
+								@submit.prevent="handleSubmit(() => onValidSubmit($event))"
 								ref="form"
 							>
 								<ValidationProvider v-slot="{errors}" rules="required" class="validation-span">
@@ -239,6 +236,10 @@ export default {
 		this.$recaptcha.destroy();
 	},
 	methods: {
+		onValidSubmit(event) {
+			this.clientValidate();
+			return this.formSubmissionHandlerServer(event);
+		},
 		normalizeContactForm7Response(response) {
 			// The other possible statuses are different kind of errors
 			const isSuccess = response.status === 'mail_sent';
