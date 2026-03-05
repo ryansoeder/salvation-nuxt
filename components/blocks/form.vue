@@ -160,6 +160,29 @@
 									<label for="budget">Desired budget</label>
 									<input v-model="budget" id="budget" type="text" name="budget" />
 								</ValidationProvider>
+								<ValidationProvider
+									v-slot="{errors}"
+									rules="required"
+									class="validation-span age-checkbox"
+								>
+									<div>
+										<input
+											v-model="age"
+											id="age"
+											type="checkbox"
+											name="age"
+											:true-value="'yes'"
+											:false-value="null"
+										/>
+										<label for="age">
+											I am 18 years of age or older
+											<span class="required-text"><i>(required)</i></span>
+										</label>
+									</div>
+									<span class="input-invalid-message">
+										{{ errors[0] }}
+									</span>
+								</ValidationProvider>
 								<button class="btn btn-main rounded-pill" type="submit">Submit</button>
 							</form>
 							<small
@@ -201,7 +224,8 @@ export default {
 			description: null,
 			color: null,
 			specifics: null,
-			budget: null
+			budget: null,
+			age: null
 		};
 	},
 	async mounted() {
@@ -317,6 +341,12 @@ export default {
 				}
 				.input-invalid-message {
 					margin: 0;
+				}
+			}
+			&.age-checkbox {
+				label {
+					position: relative;
+					top: -2px;
 				}
 			}
 		}
