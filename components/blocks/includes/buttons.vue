@@ -2,17 +2,17 @@
 	<div class="buttons" v-if="buttons">
 		<template v-for="(row, index) in buttons">
 			<a
-				:key="index"
-				v-if="row.button && (row.button.url.includes('http') || row.button.url.includes('https'))"
+				v-if="row.button && isExternalAbsoluteUrl(row.button.url)"
+				:key="`ext-${index}`"
 				:href="row.button.url"
 				:target="row.button.target"
 				class="btn btn-main rounded-pill"
 				>{{ row.button.title }}</a
 			>
 			<NuxtLink
-				:key="index"
 				v-else-if="row.button && row.button.url"
-				:to="row.button.url"
+				:key="`int-${index}`"
+				:to="toInternalPath(row.button.url)"
 				:target="row.button.target"
 				class="btn btn-main rounded-pill"
 				>{{ row.button.title }}</NuxtLink
@@ -26,6 +26,35 @@ export default {
 	name: 'Buttons',
 	props: {
 		buttons: Array
+	},
+	methods: {
+		isAbsoluteHttpUrl(url) {
+			return typeof url === 'string' && /^https?:\/\//i.test(url);
+		},
+		isSameBackendUrl(url) {
+			if (!this.isAbsoluteHttpUrl(url)) return false;
+
+			const backendURL = process.env.backendURL;
+			if (!backendURL || typeof backendURL !== 'string') return false;
+
+			const normalizedBackendURL = backendURL.replace(/\/+$/, '');
+			const normalizedUrl = url.replace(/\/+$/, '');
+
+			return normalizedUrl.startsWith(normalizedBackendURL);
+		},
+		isExternalAbsoluteUrl(url) {
+			return this.isAbsoluteHttpUrl(url) && !this.isSameBackendUrl(url);
+		},
+		toInternalPath(url) {
+			if (this.isSameBackendUrl(url)) {
+				const backendURL = (process.env.backendURL || '').replace(/\/+$/, '');
+				const stripped = url.slice(backendURL.length);
+				if (!stripped) return '/';
+				return stripped.startsWith('/') ? stripped : `/${stripped}`;
+			}
+
+			return url;
+		}
 	}
 };
 </script>

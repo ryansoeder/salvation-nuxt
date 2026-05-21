@@ -114,6 +114,11 @@ export default {
 				: 'https://content.tattoosalvation.com/wp-json/wp/v2'
 	},
 
+	// Expose env vars to client-side code (build-time injection)
+	env: {
+		backendURL: process.env.NUXT_BACKEND_URL
+	},
+
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {transpile: ['vee-validate/dist/rules'], fallback: '404.html'},
 
