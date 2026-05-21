@@ -116,7 +116,11 @@ export default {
 
 	// Expose env vars to client-side code (build-time injection)
 	env: {
-		backendURL: process.env.NUXT_BACKEND_URL
+		backendURL:
+			process.env.NUXT_BACKEND_URL ||
+			(process.env.NUXT_ENV_ENVIRONMENT === 'local'
+				? 'http://tattoo-salvation.local'
+				: 'https://content.tattoosalvation.com')
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
